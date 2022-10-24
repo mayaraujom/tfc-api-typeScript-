@@ -32,5 +32,23 @@ describe('Login tests', () => {
     expect(chaiHttpResponse.status).to.be.equal(401);
     expect(chaiHttpResponse.body).not.to.have.property('token');
   });
+  it('O avaliador verificará se é possível fazer o login sem informar email', async () => {
+    const chaiHttpResponse = await chai.request(app).post('/login').send({
+      email: '',
+      password: 'secret_adminastror',
+    });
+
+    expect(chaiHttpResponse.status).to.be.equal(400);
+    expect(chaiHttpResponse.body).not.to.have.property('token');
+  });
+  it('O avaliador verificará se é possível fazer o login sem informar email', async () => {
+    const chaiHttpResponse = await chai.request(app).post('/login').send({
+      email: 'admin@admin.com',
+      password: '',
+    });
+
+    expect(chaiHttpResponse.status).to.be.equal(400);
+    expect(chaiHttpResponse.body).not.to.have.property('token');
+  });
 });
 
