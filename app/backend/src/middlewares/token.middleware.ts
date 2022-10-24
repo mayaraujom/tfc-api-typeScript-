@@ -1,7 +1,8 @@
-import jwt = require('jsonwebtoken');
+import * as jwt from 'jsonwebtoken';
+
+const { JWT_SECRET = 'jwt_secret' } = process.env;
 
 export const tokenGenerator = (email: string) => {
-  const JWT_SECRET = 'jwt_secret';
   const jwtConfig: jwt.SignOptions = {
     expiresIn: '15m',
     algorithm: 'HS256',
