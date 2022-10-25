@@ -13,4 +13,23 @@ export default class MatchesController {
 
     return res.status(200).json(matches);
   };
+
+  public getMatchesByProgress = async (req: Request, res: Response) => {
+    const progress = req.query.inProgress;
+    console.log(progress);
+
+    if (!progress) {
+      return this.getAllMatches(req, res);
+    }
+
+    let progressBoolean;
+    if (progress === 'true') {
+      progressBoolean = true;
+    } else {
+      progressBoolean = false;
+    }
+    const matches = await this._matchesService.getMatchesByProgress(progressBoolean);
+
+    return res.status(200).json(matches);
+  };
 }

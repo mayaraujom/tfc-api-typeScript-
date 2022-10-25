@@ -10,11 +10,23 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-describe('Teams tests', () => {
+describe('Matches tests', () => {
   it('GET com resposta com status 200 e com um json com as partidas', async () => {
     const chaiHttpResponse = await chai.request(app).get('/matches');
 
     expect(chaiHttpResponse.status).to.be.equal(200);
     expect(chaiHttpResponse.body).to.have.length(48);
+  });
+  it('GET das partidas em progresso', async () => {
+    const chaiHttpResponse = await chai.request(app).get('/matches?inProgress=true');
+
+    expect(chaiHttpResponse.status).to.be.equal(200);
+    expect(chaiHttpResponse.body).to.have.length(8);
+  });
+  it('GET das partidas finalizadas', async () => {
+    const chaiHttpResponse = await chai.request(app).get('/matches?inProgress=false');
+
+    expect(chaiHttpResponse.status).to.be.equal(200);
+    expect(chaiHttpResponse.body).to.have.length(40);
   });
 });

@@ -18,6 +18,18 @@ class MatchesService {
 
     return matches;
   };
+
+  public getMatchesByProgress = async (progress: boolean) => {
+    const matches = await Matches.findAll({
+      where: { inProgress: progress },
+      include: [
+        { model: Teams, as: 'teamHome', attributes: { exclude: ['id'] } },
+        { model: Teams, as: 'teamAway', attributes: { exclude: ['id'] } },
+      ],
+    });
+
+    return matches;
+  };
 }
 
 export default MatchesService;
