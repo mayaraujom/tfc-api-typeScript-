@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { verifyToken } from '../middlewares/token.middleware';
 import LoginService from '../services/LoginService';
 
 export default class LoginController {
@@ -15,5 +16,17 @@ export default class LoginController {
       return res.status(status).json({ message });
     }
     return res.status(status).json({ token });
+  };
+
+  public validToken = (req: Request, res: Response) => {
+    const { authorization } = req.headers;
+
+    if (!authorization) {
+      return res.status(401).json({ message: 'Token not found' });
+    }
+
+    const decoded = verifyToken(authorization);
+
+    return res.status(200).json(decoded);
   };
 }

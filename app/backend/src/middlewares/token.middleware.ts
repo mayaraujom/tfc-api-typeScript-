@@ -1,16 +1,23 @@
 import * as jwt from 'jsonwebtoken';
+import IPayload from '../interfaces/IPayload';
 
 const { JWT_SECRET = 'jwt_secret' } = process.env;
 
-export const tokenGenerator = (email: string) => {
+export const tokenGenerator = (payload: IPayload) => {
   const jwtConfig: jwt.SignOptions = {
     expiresIn: '15m',
     algorithm: 'HS256',
   };
 
-  const token = jwt.sign({ email }, JWT_SECRET, jwtConfig);
+  const token = jwt.sign(payload, JWT_SECRET, jwtConfig);
 
   return token;
 };
 
-export default { tokenGenerator };
+export const verifyToken = (token: string) => {
+  const decoded = jwt.verify(token, JWT_SECRET) as jwt.JwtPayload;
+
+  return decoded;
+};
+
+export default { tokenGenerator, verifyToken };
