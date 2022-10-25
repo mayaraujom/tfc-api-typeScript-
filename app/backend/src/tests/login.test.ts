@@ -51,4 +51,3 @@ describe('Login tests', () => {
     expect(chaiHttpResponse.body).not.to.have.property('token');
   });
 });
-
