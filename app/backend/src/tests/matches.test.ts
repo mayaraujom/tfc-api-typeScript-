@@ -29,4 +29,16 @@ describe('Matches tests', () => {
     expect(chaiHttpResponse.status).to.be.equal(200);
     expect(chaiHttpResponse.body).to.have.length(40);
   });
+  // it('GET das partidas finalizadas', async () => {
+  //   const chaiHttpResponse = await chai.request(app).post('/matches').send({
+  //     homeTeam: 16, // O valor deve ser o id do time
+  //     awayTeam: 8, // O valor deve ser o id do time
+  //     homeTeamGoals: 2,
+  //     awayTeamGoals: 2,
+  //   });
+
+  //   expect(chaiHttpResponse.status).to.be.equal(200);
+  //   expect(chaiHttpResponse.body).to.have.property('id');
+  //   expect(chaiHttpResponse.body).to.have.property('inProgress');
+  // });
 });

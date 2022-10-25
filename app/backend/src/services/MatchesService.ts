@@ -1,3 +1,4 @@
+import IMatch from '../interfaces/IMatch';
 import Matches from '../database/models/matches.model';
 import Teams from '../database/models/teams.model';
 
@@ -29,6 +30,14 @@ class MatchesService {
     });
 
     return matches;
+  };
+
+  public createMatch = async (match: IMatch) => {
+    const createdMatch = await this._matchesModel.create({
+      ...match,
+      inProgress: true,
+    });
+    return createdMatch;
   };
 }
 
