@@ -3,15 +3,19 @@ import { verifyToken } from './token.middleware';
 
 const tokenValidation = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({ message: 'Token not found' });
+  }
+
   try {
-    if (!token) {
-      return res.status(401).json({ message: 'Token not found' });
-    }
-    const decoded = verifyToken(token);
-    req.body.decoded = decoded;
+    verifyToken(token);
     next();
   } catch (err) {
-    res.status(401).json({ message: 'Invalid token' });
+    if (err instanceof Error && err.name.includes('Token')) {
+      return res.status(401).json({ message: 'Token must be a valid token' });
+    }
+    next(err);
   }
 };
 
