@@ -7,5 +7,6 @@ const matchesController = new MatchesController();
 
 matchesRouter.get('/matches', matchesController.getMatchesByProgress);
 matchesRouter.post('/matches', matchesController.createMatch);
+matchesRouter.patch('/matches/:id/finish', matchesController.updateProgress);
 
 export default matchesRouter;

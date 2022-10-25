@@ -39,6 +39,10 @@ class MatchesService {
     });
     return createdMatch;
   };
+
+  public finishMatch = async (id: string) => {
+    await this._matchesModel.update({ inProgress: false }, { where: { id } });
+  };
 }
 
 export default MatchesService;
