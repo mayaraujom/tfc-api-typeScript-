@@ -18,4 +18,16 @@ describe('Teams tests', () => {
     expect(chaiHttpResponse.status).to.be.equal(200);
     expect(chaiHttpResponse.body).to.deep.equal(allTeams);
   });
+  it('GET com id, resposta com status 200 e com um json com o time específico', async () => {
+    const chaiHttpResponse = await chai.request(app).get('/teams/1');
+
+    expect(chaiHttpResponse.status).to.be.equal(200);
+    expect(chaiHttpResponse.body).to.deep.equal(allTeams[0]);
+  });
+  it('GET com id invalido, resposta com status 404', async () => {
+    const chaiHttpResponse = await chai.request(app).get('/teams/100');
+
+    expect(chaiHttpResponse.status).to.be.equal(404);
+    expect(chaiHttpResponse.body).to.have.property('message');
+  });
 });

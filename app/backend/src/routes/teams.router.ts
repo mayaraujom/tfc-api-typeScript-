@@ -6,4 +6,6 @@ const teamsController = new TeamsController();
 
 teamsRouter.get('/teams', teamsController.getAll);
 
+teamsRouter.get('/teams/:id', teamsController.getByPk);
+
 export default teamsRouter;
