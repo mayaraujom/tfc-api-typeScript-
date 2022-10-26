@@ -1,53 +1,44 @@
 import { Request, Response } from 'express';
-import ILeaderboard from '../interfaces/ILeaderboard';
+import SortTeams from '../helpers/SortTeams';
 import IQuery from '../interfaces/IQuery';
 import LeaderboardsService from '../services/LeaderboardsService';
-import { rawQueries } from '../helpers/rawQueries';
+import TeamsFromDB from '../helpers/TeamsFromDB';
 
-export default class TeamsController {
-  public firstSort = (teams: ILeaderboard[]) => {
-    const byGolsSofridos = teams.sort((b, a) => {
-      if (a.goalsOwn > b.goalsOwn) return 1;
-      if (a.goalsOwn < b.goalsOwn) return -1;
-      return 0;
-    });
-    const byGolsFavor = byGolsSofridos.sort((b, a) => {
-      if (a.goalsFavor > b.goalsFavor) return 1;
-      if (a.goalsFavor < b.goalsFavor) return -1;
-      return 0;
-    });
-    const bySaldoGols = byGolsFavor.sort((b, a) => {
-      if (a.goalsBalance > b.goalsBalance) return 1;
-      if (a.goalsBalance < b.goalsBalance) return -1;
-      return 0;
-    });
-    return bySaldoGols;
-  };
+const TEAM_TYPE = {
+  home: 'home',
+  away: 'away',
+  all: 'all',
+};
 
-  public lastSort = (teams: ILeaderboard[]) => {
-    const sortByVic = teams.sort((b, a) => {
-      if (a.totalVictories > b.totalVictories) return 1;
-      if (a.totalVictories < b.totalVictories) return -1;
-      return 0;
-    });
-    const sortByTotalPoints = sortByVic.sort((b, a) => {
-      if (a.totalPoints > b.totalPoints) return 1;
-      if (a.totalPoints < b.totalPoints) return -1;
-      return 0;
-    });
-    return sortByTotalPoints;
-  };
+export default class LeaderboardsController {
+  sortHelper: SortTeams;
+  getTeamsHelper: TeamsFromDB;
 
-  public getAllLeaderboardsSorted = async (req: Request, res: Response) => {
-    const leaders = await rawQueries() as IQuery[];
+  constructor() {
+    this.sortHelper = new SortTeams();
+    this.getTeamsHelper = new TeamsFromDB();
+  }
 
-    const editLeards = leaders.map((leader) =>
+  public mapTeamsWithService = (teams: IQuery[]) => {
+    const mapedTeams = teams.map((leader) =>
       new LeaderboardsService(leader as IQuery).getLeaderboards);
+    return mapedTeams;
+  };
 
-    const result = this.lastSort(this.firstSort(editLeards));
+  public getOrderedTeam = async (team: string) => {
+    const teamsFromDB = await this.getTeamsHelper.getTeamsFromDB(team);
+    const teams = this.mapTeamsWithService(teamsFromDB);
+    const orderedTeams = this.sortHelper.sortTeams(teams);
+    return orderedTeams;
+  };
 
-    console.log(result);
+  public getHomeLeaderboards = async (req: Request, res: Response) => {
+    const teams = await this.getOrderedTeam(TEAM_TYPE.home);
+    return res.status(200).json(teams);
+  };
 
-    return res.status(200).json(result);
+  public getAwayTeamsLeaderboards = async (req: Request, res: Response) => {
+    const teams = await this.getOrderedTeam(TEAM_TYPE.away);
+    return res.status(200).json(teams);
   };
 }
