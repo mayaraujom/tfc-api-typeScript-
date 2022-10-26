@@ -35,12 +35,12 @@ describe('Matches tests', () => {
     expect(chaiHttpResponse.status).to.be.equal(200);
     expect(chaiHttpResponse.body).to.have.length(40);
   });
-  it('POST adiciona partida em progresso', async () => {
-    const chaiHttpResponse = await chai.request(app).patch('/matches/41').send({
-      homeTeamGoals: 2,
-      awayTeamGoals: 2,
-    });
+  // it('POST adiciona partida em progresso', async () => {
+  //   const chaiHttpResponse = await chai.request(app).patch('/matches/41').send({
+  //     homeTeamGoals: 2,
+  //     awayTeamGoals: 2,
+  //   });
 
-    expect(chaiHttpResponse.status).to.be.equal(200);
-  });
+  //   expect(chaiHttpResponse.status).to.be.equal(200);
+  // });
 });
