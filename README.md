@@ -6,7 +6,7 @@ Projeto proposto pela escola de programação Trybe durante o módulo de Back-en
 
   Foi proposto o desenvolvimento de uma API (utilizando o método `TDD`) e também integrar *- através do docker-compose -* as aplicações para que elas funcionem consumindo um banco de dados.
 
-  Nesse projeto, foi construído **um back-end dockerizado utilizando modelagem de dados através do Sequelize**. O desenvolvimento **respeitou regras de negócio** providas na descrição do projeto e **a API deve ser capaz de ser consumida por um front-end já provido pela Trybe**. O back-end deverá implementar regras de negócio para popular adequadamente a tabela disponível no front-end que será exibida para a pessoa usuária do sistema.
+  Nesse projeto, foi construído **um back-end dockerizado utilizando modelagem de dados através do Sequelize**. O desenvolvimento **respeitou regras de negócio** providas na descrição do projeto e **a API foi criada para ser consumida por um front-end já provido pela Trybe**. O back-end implementou as regras de negócio para popular adequadamente a tabela disponível no front-end que será exibida para a pessoa usuária do sistema.
 
 <strong>HABILIDADES DESENVOLVIDAS</strong><br />
 
@@ -14,7 +14,7 @@ Projeto proposto pela escola de programação Trybe durante o módulo de Back-en
 - Modelagem de dados com MySQL através do Sequelize;
 - Criação e associação de tabelas usando models do sequelize;
 - Construção de uma API REST com endpoints para consumir os models criados;
-- Construção de um CRUD com TypeScript, utilizando ORM;
+- Construção de um CRUD com TypeScript, utilizando ORM.
 
 # Requisitos
 
