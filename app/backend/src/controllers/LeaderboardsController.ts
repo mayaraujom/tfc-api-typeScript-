@@ -41,4 +41,9 @@ export default class LeaderboardsController {
     const teams = await this.getOrderedTeam(TEAM_TYPE.away);
     return res.status(200).json(teams);
   };
+
+  public getAllTeamsLeaderboards = async (req: Request, res: Response) => {
+    const teams = await this.getOrderedTeam(TEAM_TYPE.all);
+    return res.status(200).json(teams);
+  };
 }

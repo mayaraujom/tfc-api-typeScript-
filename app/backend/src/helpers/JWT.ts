@@ -8,15 +8,12 @@ export const tokenGenerator = (payload: IPayload) => {
     expiresIn: '15m',
     algorithm: 'HS256',
   };
-
   const token = jwt.sign(payload, JWT_SECRET, jwtConfig);
-
   return token;
 };
 
 export const verifyToken = (token: string) => {
   const decoded = jwt.verify(token, JWT_SECRET) as jwt.JwtPayload;
-
   return decoded;
 };
 

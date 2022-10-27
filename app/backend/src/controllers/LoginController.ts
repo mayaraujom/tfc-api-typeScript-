@@ -20,15 +20,11 @@ export default class LoginController {
 
   public validToken = (req: Request, res: Response) => {
     const { authorization } = req.headers;
-
     if (!authorization) {
       return res.status(401).json({ message: 'Token not found' });
     }
-
     const decoded = verifyToken(authorization);
-
     const { role } = decoded;
-
     return res.status(200).json({ role });
   };
 }

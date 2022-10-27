@@ -14,7 +14,6 @@ class LoginService {
   public login = async (body: IUserLogin): Promise<ILoginResponse> => {
     const { email, password } = body;
     const findUser = await Users.findOne({ where: { email } });
-
     if (findUser && bcryptjs.compareSync(password, findUser.password)) {
       const payload = {
         id: findUser.id,
@@ -23,7 +22,6 @@ class LoginService {
       const token = tokenGenerator(payload);
       return { status: 200, token };
     }
-
     return { status: 401, message: 'Incorrect email or password' };
   };
 }
