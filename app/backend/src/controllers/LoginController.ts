@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { verifyToken } from '../middlewares/token.middleware';
+import { verifyToken } from '../helpers/JWT';
 import LoginService from '../services/LoginService';
 
 export default class LoginController {
@@ -27,6 +27,8 @@ export default class LoginController {
 
     const decoded = verifyToken(authorization);
 
-    return res.status(200).json(decoded);
+    const { role } = decoded;
+
+    return res.status(200).json({ role });
   };
 }

@@ -34,7 +34,7 @@ export default class SortTeams {
     return sortByTotalPoints;
   };
 
-  public sortTeams = (teams: ILeaderboard[]) => {
+  public sortTeams = (teams: ILeaderboard[]): ILeaderboard[] => {
     const sorted = this.lastSort(this.firstSort(teams));
     return sorted;
   };

@@ -2,7 +2,7 @@ import * as bcryptjs from 'bcryptjs';
 import ILoginResponse from '../interfaces/ILoginResponse';
 import Users from '../database/models/users.model';
 import IUserLogin from '../interfaces/IUserLogin';
-import { tokenGenerator } from '../middlewares/token.middleware';
+import { tokenGenerator } from '../helpers/JWT';
 
 class LoginService {
   private userModel;
