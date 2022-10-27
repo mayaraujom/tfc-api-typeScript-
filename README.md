@@ -16,6 +16,8 @@ Projeto proposto pela escola de programação Trybe durante o módulo de Back-en
 - Construção de uma API REST com endpoints para consumir os models criados;
 - Construção de um CRUD com TypeScript, utilizando ORM;
 
+# Requisitos
+
 ## Seção 1: Login
 
 <details>
